@@ -1,0 +1,39 @@
+package onlinelectures;
+
+class Onlinelectures {
+	val Slide[*] slides;
+    val Video[*] videos;
+    val Practical[*] practicals;
+}
+
+class Practical {
+   	attr String name;
+   	attr String description;
+   	val Assessment[*] assessments;
+}
+
+abstract class Assessment {
+	attr String release;
+	attr String deadline;
+	
+}
+
+class OpenAssessment extends Assessment {
+	
+}
+
+class Exam extends Assessment {
+	
+}
+
+class Slide {
+	attr String name;
+	attr String description;
+}
+
+class Video {
+	attr String name;
+	attr String description;
+}
+
+
