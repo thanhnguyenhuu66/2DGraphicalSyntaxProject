@@ -1,0 +1,136 @@
+operation Any isDiagram() {
+	return self.eClass().isAnnotatedAs("picto.diagram");
+}
+
+operation Any isNode() {
+	return self.eClass().isAnnotatedAs("picto.node");
+}
+
+operation Any isLink() {
+	return self.eClass().isAnnotatedAs("picto.link");
+}
+
+// Digram title - existed
+operation Any getTitle() {
+	var attr = self.eClass().getAnnotationValue("picto.diagram", "title");
+	return self.eGet(self.eClass().getEStructuralFeature(attr));
+}
+// Node&Link label
+operation Any getLabel() {
+	var ann = self.isNode() ? "picto.node" : "picto.link";
+	var attr = self.eClass().getAnnotationValue(ann, "label");
+	return self.eGet(self.eClass().getEStructuralFeature(attr));
+}
+
+// Node Border&Link color
+operation Any getColor() {
+	var ann = self.isNode() ? "picto.node" : "picto.link";
+	return self.eClass().getAnnotationValue(ann, "color");
+}
+
+// Node&Link style
+operation Any getStyle() {
+	var ann = self.isNode() ? "picto.node" : "picto.link";
+	return self.eClass().getAnnotationValue(ann, "style");
+}
+
+// Node filled color
+operation Any getFilledColor() {
+	return self.eClass().getAnnotationValue("picto.node", "fillcolor");
+}
+
+// Node figure
+operation Any getShape() {
+	return self.eClass().getAnnotationValue("picto.node", "shape");
+}
+
+// Node size
+operation Any getHeight() {
+	return self.eClass().getAnnotationValue("picto.node", "height");
+}
+
+// Node border width
+operation Any getWidth() {
+	return self.eClass().getAnnotationValue("picto.node", "width");
+}
+
+// Node label font color
+operation Any getFontColor() {
+	var ann = self.isNode() ? "picto.node" : "picto.link";
+	return self.eClass().getAnnotationValue(ann, "fontcolor");
+}
+
+// Node margin
+operation Any getMargin() {
+	return self.eClass().getAnnotationValue("picto.node", "margin");
+}
+
+// Link source
+operation Any getSource() {
+	var ref = self.eClass().getAnnotationValue("picto.link", "source");
+	return self.eGet(self.eClass().getEStructuralFeature(ref));
+}
+
+// Link target
+operation Any getTarget() {
+	var ref = self.eClass().getAnnotationValue("picto.link", "target");
+	return self.eGet(self.eClass().getEStructuralFeature(ref));
+}
+
+// Link arrowhead
+operation Any getArrowHead() {
+	return self.eClass().getAnnotationValue("picto.link", "arrowhead");
+}
+
+// Link arrowtail
+operation Any getArrowTail() {
+	return self.eClass().getAnnotationValue("picto.link", "arrowtail");
+}
+
+// Link head&tail shape direction
+operation Any getDir() {
+	return self.eClass().getAnnotationValue("picto.link", "dir");
+}
+
+
+
+operation Any isAnnotatedAs(name: String) : Boolean {
+	return self.getAnnotation(name).isDefined();
+}
+
+operation Any getAnnotationValue(name: String, detail: String) : Any {
+	var ann = self.eAnnotations.selectOne(a|a.source = name);
+	var det;
+
+	if (ann.isDefined()) {
+		det = ann.details.selectOne(d|d.key = detail);
+	}
+
+	if (det.isDefined()) {
+		return det.value;
+	}
+	else if (self.eClass().name = "EClass") {
+		for (s in self.eSuperTypes) {
+			var sann = s.getAnnotationValue(name, detail);
+			if (sann.isDefined()) {
+				return sann;
+			}
+		}
+	}
+	return det;	
+}
+
+operation Any getAnnotation(name : String) : Any {
+	var ann = self.eAnnotations.selectOne(a|a.source = name);
+	
+	if (self.eClass().name = "EClass" and ann.isUndefined()) {
+		for (s in self.eSuperTypes) {
+			var sann = s.getAnnotation(name);
+			if (sann.isDefined()) return sann;
+		}
+	}
+	
+	return ann;
+}
+
+
