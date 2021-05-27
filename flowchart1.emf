@@ -1,0 +1,34 @@
+package flowchart1;
+
+@picto.diagram(title="name")
+class Flowchart {
+   attr String name;
+   val Node[*] nodes;
+   val Transition[*] transitions;
+}
+
+abstract class Node {
+   attr String name;
+}
+
+@picto.link(label="name", source="from", target="to", color="green:red;0.25:blue", style="dashed", fontcolor="red", arrowhead="vee", arrowtail="dot", dir="none")
+class Transition {
+   attr String name;
+   ref Node from;
+   ref Node to;
+}
+
+@picto.node(label="name", color="red", fillcolor="azure", style="filled", fontcolor="blue", margin="0.1", width="1.5")
+class Action extends Node { 
+   
+}
+
+@picto.node(label="name", color="brown", shape="box", width="0.1", height="3", style="filled, dashed", fillcolor="azure")
+class Decision extends Node {
+   
+}
+
+@picto.node(label="name", color="brown", shape="box", width="0.1", height="3", style="filled, dashed", fillcolor="green")
+class Graduation extends Node {
+   
+}

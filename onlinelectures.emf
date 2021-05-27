@@ -1,17 +1,20 @@
 package onlinelectures;
 
+@picto.diagram(title="name")
 class Onlinelectures {
 	val Slide[*] slides;
     val Video[*] videos;
     val Practical[*] practicals;
 }
 
+@picto.node(label="name", fillcolor="white", style="filled", fontcolor="blue", width="1.5")
 class Practical {
    	attr String name;
    	attr String description;
    	val Assessment[*] assessments;
 }
 
+@picto.node(label="name", fillcolor="white", style="filled", fontcolor="blue", width="1.5")
 abstract class Assessment {
 	attr String release;
 	attr String deadline;

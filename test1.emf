@@ -1,0 +1,28 @@
+@namespace(uri="umlClassMetaModel", prefix="")
+@picto
+package umlClassMetaModel;
+
+@picto.diagram(title="name")
+class UmlPackage {
+	attr String Name;
+	val UmlClass[*]#Package Classes;
+	val UmlAssociation[*]#Package Associations;
+}
+
+@picto.node(label="Name", fillcolor="azure", style="filled", fontcolor="red")
+class UmlClass {
+  ref UmlPackage[1]#Classes Package;
+  attr String Name;
+  @picto.link(arrowhead="arrow", style="dash")
+  ref UmlAssociation[*]#Source outgoingRelations;
+  @picto.link(arrowhead="arrow", style="dot")
+  ref UmlAssociation[*]#Target incomingRelations;
+}
+
+@picto.node(label = "Name", fillcolor="azure", style="filled", fontcolor="blue")
+class UmlAssociation {
+  	ref UmlPackage[1]#Associations Package;
+	attr String Name;
+	ref UmlClass[1]#outgoingRelations Source;
+	ref UmlClass[1]#incomingRelations Target;
+}

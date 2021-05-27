@@ -1,0 +1,8 @@
+?nsuri: umlClassMetaModel
+?render-egx: picto/project.egx
+umlPackage:
+	title: TEST1
+	
+	UmlClass: {name: Welcome, ':var': a0}
+	
+	
