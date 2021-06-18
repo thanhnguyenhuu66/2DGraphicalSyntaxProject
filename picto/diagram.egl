@@ -1,16 +1,40 @@
 [%import "ecoreutil.eol";%]
 
 digraph G {
-	node[fontname=Tahoma, shape=rectangle]
+	node[fontname=Tahoma]
 	
 	[%for (e in d.eContents.select(e|e.isNode())){%]
 	[%e.~nodeId = "n" + loopCount;%]
-	[%=e.~nodeId%][label="[%=e.getLabel()%]", fontcolor="[%=e.getFontColor()%]", fillcolor="[%=e.getFilledColor()%]", color="[%=e.getColor()%]", width="[%=e.getWidth()%]", height="[%=e.getWidth()%]", shape="[%=e.getHeight()%]", style="[%=e.getStyle()%]", margin="[%=e.getMargin()%]"]
+	[%=e.~nodeId%][
+	label="[%="{"+e.getLabel()+"|"+"+"+e.getVisibility()+e.getAttribute()+e.getOperation()+"}"%]",
+	fontcolor="[%=e.getFontColor()%]", 
+	fontsize="[%=e.getFontSize()%]", 
+	fontname="[%=e.getFontName()%]",
+	fillcolor="[%=e.getFilledColor()%]", 
+	color="[%=e.getColor()%]", 
+	width="[%=e.getWidth()%]", 
+	height="[%=e.getHeight()%]", 
+	shape="[%=e.getShape()%]", 
+	style="[%=e.getStyle()%]", 
+	margin="[%=e.getMargin()%]"
+	]
 	[%}%]
 	
 	[%for (l in d.eContents.select(l|l.isLink())){%]
-	[%=l.getSource().~nodeId%]->[%=l.getTarget().~nodeId%][label="[%=l.getLabel()%]", color="[%=l.getColor()%]", style="[%=l.getStyle()%]", fontcolor="[%=l.getFontColor()%]", arrowhead="[%=l.getArrowHead()%]", arrowtail="[%=l.getArrowTail()%]", dir="[%=l.getDir()%]"]
+	[%=l.getSource().~nodeId%]->[%=l.getTarget().~nodeId%][
+	label="[%=l.getLabel()%]",
+	headlabel="[%=l.getHeadLabel()%]",
+	taillabel="[%=l.getTailLabel()%]",
+	color="[%=l.getColor()%]", 
+	style="[%=l.getStyle()%]", 
+	fontcolor="[%=l.getFontColor()%]", 
+	fontsize="[%=l.getFontSize()%]",
+	fontname="[%=l.getFontName()%]",
+	arrowhead="[%=l.getArrowHead()%]", 
+	arrowtail="[%=l.getArrowTail()%]", 
+	dir="[%=l.getDir()%]", 
+	penwidth="[%=l.getLinkWidth()%]"
+	]
 	[%}%]
-	
-	
 }
+

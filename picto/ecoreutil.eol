@@ -11,10 +11,11 @@ operation Any isLink() {
 }
 
 // Digram title - existed
-operation Any getTitle() {
+ operation Any getTitle() {
 	var attr = self.eClass().getAnnotationValue("picto.diagram", "title");
 	return self.eGet(self.eClass().getEStructuralFeature(attr));
 }
+
 // Node&Link label
 operation Any getLabel() {
 	var ann = self.isNode() ? "picto.node" : "picto.link";
@@ -55,9 +56,21 @@ operation Any getWidth() {
 }
 
 // Node label font color
+operation Any getFontName() {
+	var ann = self.isNode() ? "picto.node" : "picto.link";
+	return self.eClass().getAnnotationValue(ann, "fontname");
+}
+
+// Node label font color
 operation Any getFontColor() {
 	var ann = self.isNode() ? "picto.node" : "picto.link";
 	return self.eClass().getAnnotationValue(ann, "fontcolor");
+}
+
+// Node label font size
+operation Any getFontSize() {
+	var ann = self.isNode() ? "picto.node" : "picto.link";
+	return self.eClass().getAnnotationValue(ann, "fontsize");
 }
 
 // Node margin
@@ -77,6 +90,18 @@ operation Any getTarget() {
 	return self.eGet(self.eClass().getEStructuralFeature(ref));
 }
 
+// Link headlabel near Source 
+operation Any getHeadLabel() {
+	var attr = self.eClass().getAnnotationValue("picto.link", "headlabel");
+	return self.eGet(self.eClass().getEStructuralFeature(attr));
+}
+
+// Link taillabel near Target
+operation Any getTailLabel() {
+	var attr = self.eClass().getAnnotationValue("picto.link", "taillabel");
+	return self.eGet(self.eClass().getEStructuralFeature(attr));
+}
+
 // Link arrowhead
 operation Any getArrowHead() {
 	return self.eClass().getAnnotationValue("picto.link", "arrowhead");
@@ -92,7 +117,44 @@ operation Any getDir() {
 	return self.eClass().getAnnotationValue("picto.link", "dir");
 }
 
+// Link width
+operation Any getLinkWidth() {
+	return self.eClass().getAnnotationValue("picto.link", "penwidth");
+}
 
+// Node class Attribute
+operation Any getAttribute() {
+	var attr;
+	for (i in self.eGet(self.eClass().getEStructuralFeature("ownedAttribute"))) {
+	attr = attr + "\\l" + i.name;
+	}
+	return attr;
+}
+
+// Node class Operation
+operation Any getOperation() {
+	var op;
+	var opNewLine;
+	for (i in self.eGet(self.eClass().getEStructuralFeature("ownedOperation"))) {
+	op = op + i.name + "\\l";
+	opNewLine = "|" + op;
+	}
+	return opNewLine;
+}
+
+// Node EnumerationLiteral
+operation Any getLiteral() {
+	var lit;
+	for (i in self.eGet(self.eClass().getEStructuralFeature("ownedLiteral"))) {
+	lit = lit + i.name + "\\l";
+	}
+	return lit;
+}
+
+// Node class Attribute
+operation Any getVisibility() {
+	return self.eGet(self.eClass().getEStructuralFeature("visibility"));
+}
 
 operation Any isAnnotatedAs(name: String) : Boolean {
 	return self.getAnnotation(name).isDefined();
@@ -117,7 +179,6 @@ operation Any getAnnotationValue(name: String, detail: String) : Any {
 			}
 		}
 	}
-	return det;	
 }
 
 operation Any getAnnotation(name : String) : Any {

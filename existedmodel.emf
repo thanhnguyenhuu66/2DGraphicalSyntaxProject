@@ -1,66 +1,122 @@
-@namespace(uri="flock", prefix="flock")
-package flock;
+@"http://www.eclipse.org/uml2/2.0.0/UML"(originalName="UML")
+@namespace(uri="http://www.eclipse.org/uml2/5.0.0/UML", prefix="uml")
+package UML;
 
-
-class FlockModule extends EolLibraryModule {
-  val TypeMappingConstruct[*] typeMappings;
-  val MigrateRule[*] rules;
-  ref NamedBlock[*] pre;
-  ref NamedBlock[*] post;
-}
-
-abstract class ClassifierTypedConstruct extends GuardedConstruct {
-}
-
-class MigrateRule extends ClassifierTypedConstruct, GuardedConstruct {
-  ref StatementBlock[1] body;
-  attr String[*] ignoredFeatures;
-  attr String originalType;
-  attr boolean strict;
-}
-
-abstract class TypeMappingConstruct extends ClassifierTypedConstruct, GuardedConstruct {
-}
-
-class Deletion extends TypeMappingConstruct, ClassifierTypedConstruct {
-  attr String[1] originalType;
-  attr boolean strict;
-  attr boolean cascade;
-}
-
-class Retyping extends TypeMappingConstruct, ClassifierTypedConstruct {
-  attr String[1] evolvedType;
-  attr String[1] originalType;
-  attr boolean strict;
-}
-
-class EolLibraryModule {
-}
-
-class ExpressionOrStatementBlock {
-}
-
-class StatementBlock {
-}
-
-abstract class GuardedConstruct {
-  ref ExpressionOrStatementBlock guard;
-}
-
-abstract class PackageTypedConstruct extends GuardedConstruct {
-  attr String[1] originalPackage;
-}
-
-class PackageDeletion extends GuardedConstruct, TypeMappingConstruct {
-  attr String[1] originalPackage;
-}
-
-class PackageRetyping extends TypeMappingConstruct {
-  attr String[1] originalPackage;
-  attr String[1] evolvedPackage;
-}
-
-class NamedBlock {
+abstract class Element {
   attr String name;
-  ref StatementBlock[1] body;
+  attr String visibility;
+}
+
+class PackageableElement extends Element {
+  !ordered val Package[*] packagedElement;
+}
+
+@picto.diagram(title="name")
+class Package extends PackageableElement {
+  val Class[*]#Package Classes;
+  val Association[*]#Package Associations;
+}
+
+class Model extends Package {
+}
+
+class TypedElement extends Element {
+  ref Package type;
+  val LiteralInteger lowerValue;
+  val LiteralUnlimitedNatural upperValue;
+}
+
+class PrimitiveType extends Package {
+}
+
+class LiteralInteger extends Package {
+}
+
+class LiteralUnlimitedNatural extends Package {
+  attr int value;
+}
+
+class Attribute extends TypedElement {
+}
+
+class Property extends Attribute {
+  attr boolean isStatic;
+  ref Association association;
+  !ordered val Property[*] qualifier;
+  ref Association owningAssociation;
+  ref Association associationEnd;
+  ref Interface ~interface;
+}
+
+class Parameter extends TypedElement {
+  attr String direction;
+}
+
+class Operation extends PackageableElement {
+  !ordered val Parameter[*] ownedParameter;
+  ref Class ~class;
+  ref Interface ~interface;
+}
+
+@picto.node(label="name", headlabel="headNote", taillabel="tailNote", fillcolor="azure", style="filled", fontcolor="red", fontsize = "11", shape="record")
+class Class {
+  attr String name;
+  attr String visibility;
+  !ordered val Attribute[*] ownedAttribute;
+  !ordered val Operation[*] ownedOperation;
+  !ordered val Generalization[*] generalization;
+  !ordered val TemplateBinding[*] templateBinding;
+  !ordered val Class[*] nestedClassifier;
+}
+
+@picto.node(label="name", color="red", fillcolor="azure", style="filled", fontcolor="blue", margin="0.1", width="1.5", shape="circle")
+class Interface extends Class {
+}
+
+class EnumerationLiteral extends PackageableElement {
+  !ordered val Enumeration[*] classifier;
+  ref Enumeration enumeration;
+}
+
+//@picto.node(label="name", color="red", fillcolor="azure", style="filled", fontcolor="blue", margin="0.1", width="1.5", shape="circle")
+class Enumeration extends Class {
+  !ordered val EnumerationLiteral[*] ownedLiteral;
+}
+
+class Generalization extends Element {
+  ref Class general;
+  ref Class specific;
+}
+
+@picto.link(label="name", headlabel="headNote", taillabel="tailNote", source="from", target="to", color="green:red;0.25:blue", style="dashed", fontcolor="red", fontsize="10", arrowhead="vee", arrowtail="dot", dir="head")
+class Association {
+  !ordered ref Property[*] memberEnd;
+  !ordered ref Property[*] ownedEnd;
+  attr String name;
+  attr String headNote;
+  attr String tailNote;
+  ref Class from;
+  ref Class to;
+}
+
+class Inheritance extends Association {	
+}
+
+class Relization extends Association {	
+}
+
+class Aggregation extends Association {	
+}
+
+class Composition extends Association {	
+}
+
+class TemplateParameterSubstitution extends Element {
+  val Package actual;
+  ref TemplateBinding templateBinding;
+}
+
+class TemplateBinding extends Element {
+  !ordered val TemplateParameterSubstitution[*] parameterSubstitution;
+  ref Package boundElement;
 }

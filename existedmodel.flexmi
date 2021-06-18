@@ -1,0 +1,183 @@
+?nsuri: http://www.eclipse.org/uml2/5.0.0/UML
+?render-egx: picto/project.egx
+existedmodel:
+  name: UML
+  
+  # Classes
+  class: {
+    name: Player, 
+    visibility: public, 
+    ownedAttribute: {name: "name: String"}, 
+    ownedAttribute: {name: "pieceSet: PieceSet"},
+    ownedAttribute: {name: "playerColor: PieceColor"},
+    ownedOperation: {name: "isCheck(): Boolean"},
+    ':var': a1
+  }
+  
+  class: {
+    name: ChessGame, 
+    visibility: public, 
+    ownedAttribute: {name: "whiteSet: PieceSet"}, 
+    ownedAttribute: {name: "blackSet: PieceSet"},
+    ownedAttribute: {name: "whitePlayer: Player"},
+    ownedAttribute: {name: "blackPlayer: Player"},
+    ownedAttribute: {name: "queue: Queue"},
+    ownedAttribute: {name: "gameBoard: Board"},
+    ownedAttribute: {name: "checkStatus: Check"},
+    
+    ownedOperation: {name: "getStringInput(): String"},
+    ownedOperation: {name: "InputINCorrectSize(): Boolean"},
+    ownedOperation: {name: "coordinatesNotOnBoard(): Boolean"},
+    ownedOperation: {name: "throwInputAndOutputIsTheSame()"},
+    ownedOperation: {name: "throwFriendlyPieceOnDestination()"},
+    ownedOperation: {name: "throwPieceCantMoveLikeThat()"},
+    ownedOperation: {name: "throwColision()"},
+    ':var': a2
+  }
+  
+  class: {
+    name: Check, 
+    visibility: public, 
+    ownedAttribute: {name: "varPiece: Piece"}, 
+    ownedAttribute: {name: "kingPos: Coordinates"},
+    ownedAttribute: {name: "copyBoard: Board"},
+    ownedOperation: {name: "isCheck(): Boolean"},
+    ownedOperation: {name: "isMate(): Boolean"},
+    ':var': a3
+  }
+  
+  class: {
+    name: PieceSet, 
+    visibility: public, 
+    ownedAttribute: {name: "pieceList: Piece Array"}, 
+    ownedAttribute: {name: "pieceColor: PieceColor"},
+    ownedOperation: {name: "createIterator(): Piece Array"},
+    ':var': a4
+  }
+  
+  enumeration: {
+    name: PieceColor, 
+    visibility: public, 
+    ownedLiteral: {name: "WHITE"},
+    ownedLiteral: {name: "BLACK"},
+    ':var':a5
+  }
+  
+  class: {
+    name: Board, 
+    visibility: public, 
+    ownedAttribute: {name: "board:Square[][]"}, 
+    ownedOperation: {name: "printBoard()"},
+    ownedOperation: {name: "isSomethingBetween(): Boolean"},
+    ownedOperation: {name: "getSquare(): Square[][]"},
+    ':var': a6
+  }
+  
+  class: {
+    name: Coordinates, 
+    visibility: public, 
+    ownedAtrribute: {name: "x: Integer"},
+    ownedAtrribute: {name: "y: Integer"},
+    ':var':a7
+  }
+  
+  enumeration: {
+    name: PieceType, 
+    visibility: public, 
+    ownedLiteral: {name: "ROOK"},
+    ownedLiteral: {name: "KING"},
+    ownedLiteral: {name: "PAWN"},
+    ownedLiteral: {name: "QUEEN"},
+    ownedLiteral: {name: "KNIGHT"},
+    ownedLiteral: {name: "BISHOP"},
+    ':var':a8
+  }
+  
+  class: {
+    name: Move, 
+    visibility: public,
+    ownedOperation: {name: "move()"},
+    ':var': a0
+  }
+  
+  class: {
+    name: Square, 
+    visibility: public, 
+    ownedAttribute: {name: "x: Integer"},
+    ownedAttribute: {name: "y: Intege"},
+    ownedAttribute: {name: "pieceOnSquare: Piece"}, 
+    ownedOperation: {name: "deletePieceOnSquare()"},
+    ':var': a9
+  }
+  
+  class: {
+    name: InitBoard,
+    visibility: public,
+    ownedOperation: {name: "init()"},
+    ':var': a10
+  }
+  
+  class: {
+    name: Piece, 
+    visibility: public, 
+    ownedAttribute: {name: "pieceName: String"},
+    ownedAttribute: {name: "pieceColor: PieceColor"},
+    ownedAttribute: {name: "moved: Boolean"},
+    ownedAttribute: {name: "pieceType: PieceType"}, 
+    ownedOperation: {name: "isDiagonal(): Boolean"},
+    ownedOperation: {name: "isVerticalOrHorizontal(): Boolean"},
+    ownedOperation: {name: "giveWorBAccordingToColor(): String"},
+    ':var': a11
+  }
+  
+  interface: {
+    name: Queen, 
+    ':var': a12
+  } 
+  
+  interface: {
+    name: Pawn, 
+    ':var': a13
+  }
+  interface: {
+    name: Rook, 
+    ':var': a14
+  }
+  
+  interface: {
+    name: Bishop, 
+    ':var': a15
+  }
+  
+  interface: {
+    name: King, 
+    ':var': a16
+  }
+  interface: {
+    name: Knight, 
+    ':var': a17
+  }
+  
+  # Associations
+  transition: {':from': a0, ':to': a2}
+  transition: {':from': a1, ':to': a2}
+  transition: {':from': a1, ':to': a4}
+  transition: {':from': a1, ':to': a5}
+  transition: {':from': a2, ':to': a6}
+  transition: {':from': a3, ':to': a2} 
+  transition: {':from': a4, ':to': a5}
+  transition: {':from': a7, ':to': a2}
+  transition: {':from': a9, ':to': a6}  
+  transition: {':from': a9, ':to': a10}  
+  transition: {':from': a10, ':to': a6}
+  transition: {':from': a11, ':to': a5}  
+  transition: {':from': a11, ':to': a8}   
+  transition: {':from': a11, ':to': a9}  
+  transition: {':from': a11, ':to': a10}
+  transition: {':from': a12, ':to': a11}  
+  transition: {':from': a13, ':to': a11}   
+  transition: {':from': a14, ':to': a11}  
+  transition: {':from': a15, ':to': a11}  
+  transition: {':from': a16, ':to': a11}   
+  transition: {':from': a17, ':to': a11}
+  
