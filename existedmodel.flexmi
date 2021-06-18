@@ -159,25 +159,25 @@ existedmodel:
   }
   
   # Associations
-  transition: {':from': a0, ':to': a2}
-  transition: {':from': a1, ':to': a2}
-  transition: {':from': a1, ':to': a4}
-  transition: {':from': a1, ':to': a5}
-  transition: {':from': a2, ':to': a6}
-  transition: {':from': a3, ':to': a2} 
-  transition: {':from': a4, ':to': a5}
-  transition: {':from': a7, ':to': a2}
-  transition: {':from': a9, ':to': a6}  
-  transition: {':from': a9, ':to': a10}  
-  transition: {':from': a10, ':to': a6}
-  transition: {':from': a11, ':to': a5}  
-  transition: {':from': a11, ':to': a8}   
-  transition: {':from': a11, ':to': a9}  
-  transition: {':from': a11, ':to': a10}
-  transition: {':from': a12, ':to': a11}  
-  transition: {':from': a13, ':to': a11}   
-  transition: {':from': a14, ':to': a11}  
-  transition: {':from': a15, ':to': a11}  
-  transition: {':from': a16, ':to': a11}   
-  transition: {':from': a17, ':to': a11}
+  composition: {':from': a0, ':to': a2}
+  association: {':from': a1, ':to': a2}
+  association: {':from': a1, ':to': a4}
+  association: {':from': a1, ':to': a5}
+  association: {':from': a2, ':to': a6}
+  composition: {':from': a3, ':to': a2} 
+  association: {':from': a4, ':to': a5}
+  composition: {':from': a7, ':to': a2}
+  association: {':from': a9, ':to': a6}  
+  composition: {':from': a9, ':to': a10}  
+  aggregation: {':from': a10, ':to': a6}
+  relisation: {':from': a11, ':to': a5}  
+  relisation: {':from': a11, ':to': a8}   
+  association: {':from': a11, ':to': a9}  
+  composition: {':from': a11, ':to': a10}
+  inheritance: {':from': a12, ':to': a11}  
+  inheritance: {':from': a13, ':to': a11}   
+  inheritance: {':from': a14, ':to': a11}  
+  inheritance: {':from': a15, ':to': a11}  
+  inheritance: {':from': a16, ':to': a11}   
+  inheritance: {':from': a17, ':to': a11}
   

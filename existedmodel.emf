@@ -88,7 +88,7 @@ class Generalization extends Element {
   ref Class specific;
 }
 
-@picto.link(label="name", headlabel="headNote", taillabel="tailNote", source="from", target="to", color="green:red;0.25:blue", style="dashed", fontcolor="red", fontsize="10", arrowhead="vee", arrowtail="dot", dir="head")
+@picto.link(label="name", headlabel="headNote", taillabel="tailNote", source="from", target="to", color="black", style="none", fontcolor="black", fontsize="10", arrowhead="vee", arrowtail="dot", dir="none")
 class Association {
   !ordered ref Property[*] memberEnd;
   !ordered ref Property[*] ownedEnd;
@@ -99,15 +99,19 @@ class Association {
   ref Class to;
 }
 
+@picto.link(label="name", headlabel="headNote", taillabel="tailNote", source="from", target="to", color="green:red;0.25:blue", style="none", fontcolor="black", fontsize="9", arrowhead="empty", arrowtail="dot", dir="head")
 class Inheritance extends Association {	
 }
 
-class Relization extends Association {	
+@picto.link(label="name", headlabel="headNote", taillabel="tailNote", source="from", target="to", color="black", style="dashed", fontcolor="black", fontsize="9", arrowhead="empty", arrowtail="dot", dir="head")
+class Relisation extends Association {	
 }
 
+@picto.link(label="name", headlabel="headNote", taillabel="tailNote", source="from", target="to", color="brown", style="none", fontcolor="black", fontsize="9", arrowhead="odiamond", arrowtail="dot", dir="head")
 class Aggregation extends Association {	
 }
 
+@picto.link(label="name", headlabel="headNote", taillabel="tailNote", source="from", target="to", color="brown", style="none", fontcolor="black", fontsize="9", arrowhead="diamond", arrowtail="dot", dir="head")
 class Composition extends Association {	
 }
 
