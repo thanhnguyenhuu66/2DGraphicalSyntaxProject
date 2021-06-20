@@ -69,7 +69,7 @@ class Class {
   !ordered val Class[*] nestedClassifier;
 }
 
-@picto.node(label="name", color="red", fillcolor="azure", style="filled", fontcolor="blue", margin="0.1", width="1.5", shape="circle")
+@picto.node(label="name", color="Red", fillcolor="white", style="filled", fontcolor="blue", margin="0.1", width="1.5", shape="circle")
 class Interface extends Class {
 }
 
@@ -78,7 +78,7 @@ class EnumerationLiteral extends PackageableElement {
   ref Enumeration enumeration;
 }
 
-//@picto.node(label="name", color="red", fillcolor="azure", style="filled", fontcolor="blue", margin="0.1", width="1.5", shape="circle")
+@picto.node(label="name", color="red", fillcolor="bisque:floralwhite", style="filled", fontcolor="blue", margin="0.1", width="1.5", shape="record")
 class Enumeration extends Class {
   !ordered val EnumerationLiteral[*] ownedLiteral;
 }
